@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo y Catálogo de Productos</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        nav {
+            background-color: #333333;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ffcc00;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            color: #383838;
+        }
+        .product-list {
+            margin-bottom: 20px;
+        }
+        .product {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .product button {
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .product button:hover {
+            background-color: #d81b60;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #000;
+        }
+        .product img {
+            width: 200px;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        footer {
+            background-color: #333333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav a {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <a href="#panel-administrativo">Panel Administrativo</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="historial.html">Historial de Ventas</a>
+    </nav>
+
+    <!-- Panel Administrativo -->
+    <div class="container" id="panel-administrativo">
+        <h1>Gestión de Productos</h1>
+
+        <div class="product-list" id="product-list"></div>
+
+        <h2>Agregar nuevo producto</h2>
+        <div class="form-group">
+            <label for="product-name">Nombre del producto</label>
+            <input type="text" id="product-name" placeholder="Introduce el nombre del producto">
+        </div>
+        <div class="form-group">
+            <label for="product-price">Precio</label>
+            <input type="number" id="product-price" placeholder="Introduce el precio del producto">
+        </div>
+        <div class="form-group">
+            <label for="product-quantity">Cantidad</label>
+            <input type="number" id="product-quantity" placeholder="Introduce la cantidad disponible">
+        </div>
+        <div class="form-group">
+            <label for="product-image">Imagen del producto</label>
+            <input type="file" id="product-image" accept="image/*" onchange="previewImage(event)">
+            <img id="image-preview" alt="Vista previa de la imagen" style="display:none; margin-top:10px; width: 200px;"/>
+        </div>
+        <button class="submit-btn" onclick="agregarProducto()">Agregar Producto</button>
+    </div>
+
+    <!-- Catálogo de Productos -->
+    <div class="container" id="catalogo">
+        <h1>Catálogo de Productos de Mantenimiento de Computadoras</h1>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Todos los derechos reservados &copy; 2024</p>
+    </footer>
+
+    <script>
+        // Cargar productos desde localStorage
+        function cargarProductos() {
+            var productos = JSON.parse(localStorage.getItem('productos')) || [];
+            var productList = document.getElementById('product-list');
+            var catalogo = document.getElementById('catalogo');
+            productList.innerHTML = '';
+            catalogo.innerHTML = '<h1>Catálogo de Productos de Mantenimiento de Computadoras</h1>'; // Reiniciar catálogo
+
+            productos.forEach(function(producto, index) {
+                // Mostrar en el panel administrativo
+                var productDiv = document.createElement('div');
+                productDiv.classList.add('product');
+                productDiv.innerHTML = `
+                    <span>${producto.nombre} - $${producto.precio} - Cantidad: ${producto.cantidad}</span>
+                    <button onclick="eliminarProducto(${index})">Eliminar</button>
+                `;
+                productList.appendChild(productDiv);
+
+                // Mostrar en el catálogo
+                var catalogProductDiv = document.createElement('div');
+                catalogProductDiv.classList.add('product');
+                catalogProductDiv.innerHTML = `
+                    <img src="${producto.imagen}" alt="${producto.nombre}">
+                    <h2>${producto.nombre}</h2>
+                    <p>Precio: $${producto.precio}</p>
+                    <p class="availability">Cantidad disponible: ${producto.cantidad} unidades</p>
+                `;
+                catalogo.appendChild(catalogProductDiv);
+            });
+        }
+
+        // Agregar un nuevo producto
+        function agregarProducto() {
+            var nombre = document.getElementById('product-name').value;
+            var precio = document.getElementById('product-price').value;
+            var cantidad = document.getElementById('product-quantity').value;
+            var imagen = document.getElementById('image-preview').src; // Obtener la URL de la imagen
+
+            if (nombre && precio && cantidad && imagen) {
+                var productos = JSON.parse(localStorage.getItem('productos')) || [];
+                productos.push({ nombre: nombre, precio: precio, cantidad: cantidad, imagen: imagen });
+                localStorage.setItem('productos', JSON.stringify(productos));
+                cargarProductos();
+                alert('Producto agregado con éxito');
+            } else {
+                alert('Por favor, completa todos los campos');
+            }
+        }
+
+        // Eliminar un producto
+        function eliminarProducto(index) {
+            var productos = JSON.parse(localStorage.getItem('productos'));
+            productos.splice(index, 1);
+            localStorage.setItem('productos', JSON.stringify(productos));
+            cargarProductos();
+        }
+
+        // Vista previa de la imagen
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var imagePreview = document.getElementById('image-preview');
+                imagePreview.src = reader.result;
+                imagePreview.style.display = 'block'; // Mostrar la imagen
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        // Inicializar la carga de productos
+        cargarProductos();
+    </script>
+
+</body>
+</html>

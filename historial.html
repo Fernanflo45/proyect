@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Ventas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        nav {
+            background-color: #333333;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ffcc00;
+        }
+        .container {
+            max-width: 600px;
+            margin: 100px auto 0;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #383838;
+        }
+        .venta {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .venta h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+        .venta p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <a href="inicio.html">Inicio</a>
+        <a href="servicio.html">Servicios</a>
+        <a href="catalogo.html">Catálogo</a>
+        <a href="historial.html">Historial de Ventas</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Historial de Ventas</h1>
+
+        <div id="historialVentas"></div>
+    </div>
+
+    <script>
+        function cargarHistorial() {
+            var historial = JSON.parse(localStorage.getItem('historialVentas')) || [];
+            var historialDiv = document.getElementById('historialVentas');
+
+            if (historial.length === 0) {
+                historialDiv.innerHTML = '<p>No hay ventas registradas.</p>';
+            } else {
+                historial.forEach(function(venta) {
+                    var ventaDiv = document.createElement('div');
+                    ventaDiv.classList.add('venta');
+                    ventaDiv.innerHTML = '<h3>' + venta.producto + '</h3><p>Fecha: ' + venta.fecha + '</p>';
+                    historialDiv.appendChild(ventaDiv);
+                });
+            }
+        }
+
+        cargarHistorial();
+    </script>
+
+</body>
+</html>

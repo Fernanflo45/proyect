@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    background-image: url('fondo.avif'); /* Usa la imagen que subiste */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar {
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente */
+    color: white;
+    padding: 15px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    height: 80px; /* Tamaño inicial más grande del logo */
+    margin-left: 20px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin-right: 20px;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.welcome-box {
+    text-align: center;
+    margin-top: 150px;
+}
+
+.welcome-box h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.slogan {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #ddd;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos responsivos para móviles */
+@media (max-width: 768px) {
+    .logo {
+        height: 60px; /* Ajusta el tamaño del logo para pantallas más pequeñas */
+    }
+    
+    .welcome-box h1 {
+        font-size: 36px; /* Reduce el tamaño de la fuente en dispositivos más pequeños */
+    }
+    
+    .slogan {
+        font-size: 18px; /* Ajusta el eslogan en dispositivos más pequeños */
+    }
+}
+
+@media (max-width: 600px) {
+    .logo {
+        height: 50px; /* Aún más pequeño para pantallas muy reducidas */
+    }
+
+    .welcome-box h1 {
+        font-size: 32px;
+    }
+    
+    .slogan {
+        font-size: 16px;
+    }
+}

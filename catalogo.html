@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Productos de Mantenimiento de Computadoras</title>
+    <style>
+        /* Estilos generales (los mismos que antes) */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        nav {
+            background-color: #333333;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ffcc00;
+        }
+        .container {
+            max-width: 600px;
+            margin: 100px auto 0;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #383838;
+        }
+        .product {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .product h2 {
+            color: #383838;
+        }
+        .product p {
+            color: #3e3f41;
+        }
+        .price {
+            font-size: 18px;
+            color: #004080;
+            font-weight: bold;
+        }
+        .availability {
+            color: #6c757d;
+        }
+        .btn-me-interesa {
+            background-color: #141414;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+        }
+        .btn-me-interesa:hover {
+            background-color: #000000;
+        }
+        .product img {
+            width: 200px;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        footer {
+            background-color: #333333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav a {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <a href="inicio.html">Inicio</a>
+        <a href="servicio.html">Servicios</a>
+        <a href="catalogo.html">Catálogo</a>
+        <a href="historial.html">Historial de Ventas</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container" id="inicio">
+        <h1>Catálogo de Productos de Mantenimiento de Computadoras</h1>
+
+        <div class="product" data-product="aire" data-quantity="100">
+            <img src="aire.jpg" alt="Aire comprimido para limpieza">
+            <h2>Aire comprimido para limpieza de componentes</h2>
+            <p>Ideal para limpiar polvo y residuos de componentes electrónicos sin tocarlos directamente. No deja residuos.</p>
+            <p class="price">$15.00 USD</p>
+            <p class="availability">Cantidad disponible: <span class="quantity">100</span> unidades</p>
+            <a href="#" class="btn-me-interesa" onclick="venderProducto('Aire comprimido para limpieza de componentes', this)">Me interesa</a>
+        </div>
+
+        <div class="product" data-product="kit" data-quantity="75">
+            <img src="kit.webp" alt="Kit de limpieza de pantallas">
+            <h2>Kit de limpieza de pantallas</h2>
+            <p>Incluye líquido limpiador no corrosivo y toalla de microfibra para pantallas de monitores, laptops y tablets.</p>
+            <p class="price">$10.00 USD</p>
+            <p class="availability">Cantidad disponible: <span class="quantity">75</span> unidades</p>
+            <a href="#" class="btn-me-interesa" onclick="venderProducto('Kit de limpieza de pantallas', this)">Me interesa</a>
+        </div>
+
+        <div class="product" data-product="cepillo" data-quantity="150">
+            <img src="cepillo.webp" alt="Cepillo antiestático">
+            <h2>Cepillo antiestático</h2>
+            <p>Cepillo especializado para limpiar entre los componentes sin causar daño por estática.</p>
+            <p class="price">$8.50 USD</p>
+            <p class="availability">Cantidad disponible: <span class="quantity">150</span> unidades</p>
+            <a href="#" class="btn-me-interesa" onclick="venderProducto('Cepillo antiestático', this)">Me interesa</a>
+        </div>
+
+        <div class="product" data-product="pasta" data-quantity="200">
+            <img src="pasta.webp" alt="Pasta térmica de alta conductividad">
+            <h2>Pasta térmica</h2>
+            <p>Pasta de alta calidad para mejorar la transferencia de calor entre procesadores y disipadores.</p>
+            <p class="price">$5.00 USD</p>
+            <p class="availability">Cantidad disponible: <span class="quantity">200</span> unidades</p>
+            <a href="#" class="btn-me-interesa" onclick="venderProducto('Pasta térmica de alta conductividad', this)">Me interesa</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Todos los derechos reservados &copy; 2024</p>
+    </footer>
+
+    <script>
+        function venderProducto(producto, elemento) {
+            var productElement = elemento.parentElement;
+            var quantityElement = productElement.querySelector('.quantity');
+            var cantidadDisponible = parseInt(quantityElement.innerText);
+
+            if (cantidadDisponible > 0) {
+                cantidadDisponible--;
+                quantityElement.innerText = cantidadDisponible;
+
+                // Guardar el producto en el historial
+                var historial = JSON.parse(localStorage.getItem('historialVentas')) || [];
+                historial.push({ producto: producto, fecha: new Date().toLocaleString() });
+                localStorage.setItem('historialVentas', JSON.stringify(historial));
+            } else {
+                alert('El producto ya no está disponible.');
+            }
+        }
+    </script>
+
+</body>
+</html>
